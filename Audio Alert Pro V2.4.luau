@@ -1,6 +1,3 @@
--- Professional Sound Alert GUI
--- Modern dark theme with glassmorphism, search, and categorized tree view
-
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -510,7 +507,6 @@ local function createModal()
     modal.ZIndex = 1000
     modal.Parent = gui
 
-    -- Invisible button used to capture clicks outside the dialog
     local overlayButton = Instance.new("TextButton")
     overlayButton.Name = "OverlayButton"
     overlayButton.Size = UDim2.fromScale(1, 1)
@@ -665,8 +661,6 @@ local function createModal()
         closeModal()
     end)
 
-    -- Clicking the dark area closes the dialog.
-    -- The dialog itself is above the overlay, so its controls still work.
     overlayButton.Activated:Connect(closeModal)
 
     input:CaptureFocus()
