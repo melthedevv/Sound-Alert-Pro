@@ -130,4 +130,3 @@ Do whatever you want with it.
 ## Disclaimer
 
 This is an external script intended to run through a Roblox script executor. Using executors may violate Roblox's Terms of Service depending on the game and how you use it. Use at your own risk. The author is not responsible for any bans, kicks, or account actions resulting from use of this script.
-```
