@@ -1,1 +1,81 @@
-# Sound-Alert-Pro
+# Sound Alert Pro
+
+A Roblox script executor GUI that watches specific sounds in a game and pings a Discord webhook the moment they play. Dark UI, per-sound toggles, persistent config, and fast detection — no metatable hooks that get you kicked.
+
+Built for **Potassium** and **Volt**, but works with any executor that exposes `syn.request` / `request` / `http_request`.
+
+---
+
+## Features
+
+- **Discord webhook alerts** with sound name, SoundId, location, and timestamp
+- **Persistent config** — webhook and watched sounds saved to `sound_alert_config.json` in your executor's workspace
+- **Interactive GUI** — search, filter, and toggle individual sounds with checkboxes
+- **Per-sound watch list** — only ping for the sounds you care about
+- **Two views** — `All` shows every sound, `Watched` shows only your selections
+- **Statistics panel** — alerts sent counter and last alert time
+- **Master toggle** — pause/resume monitoring without closing the GUI
+- **Safe detection** — no metatable hooks, no anti-cheat kicks
+
+---
+
+## How it works
+
+1. Scans the game for every `Sound` instance and groups them by category (Workspace / ReplicatedStorage / SoundService / StarterGui / Other)
+2. Caches the list and only rescans when a sound is added or removed
+3. Runs a lightweight detection loop that checks **only the sounds you've ticked** — not the entire game tree
+4. On detection, fires a `POST` request to your webhook with an embed containing the sound's details
+
+The sound cache + watched-instance filter is what keeps it smooth even in games with hundreds of sounds.
+
+---
+
+## Setup
+
+### 1. Create a Discord webhook
+
+1. Discord → **Server Settings** → **Integrations** → **Webhooks**
+2. Click **New Webhook**
+3. Pick a channel, click **Copy Webhook URL**
+
+### 2. Run the script
+
+Paste the script into your executor and execute it in-game. The GUI opens with a webhook prompt.
+
+### 3. Configure
+
+1. Paste your webhook URL and click **Save**
+2. Click **Test** to confirm it works — a test embed should hit your channel
+3. Search/browse the sound list and tick the ones you want alerts for
+4. Every time a ticked sound plays, you'll get a Discord ping
+
+Your selections and webhook persist across sessions.
+
+---
+
+## GUI Overview
+
+| Section | What it does |
+|---|---|
+| **Discord Webhook** | Shows your configured webhook (masked). **Configure** reopens the modal, **Test** sends a test ping |
+| **Monitoring Active** | Master on/off switch. Turns the label gray and stops detection when off |
+| **Statistics** | Alerts sent counter + last alert timestamp |
+| **Search** | Filter sounds by name, path, or SoundId |
+| **All / Watched** | Toggle between every sound and just your selections |
+| **↻** | Force a rescan if the game spawns new sounds |
+
+---
+
+## Config File
+
+Stored at `workspace/sound_alert_config.json` (inside your executor's folder):
+
+```json
+{
+  "webhook": "https://discord.com/api/webhooks/...",
+  "watched": ["rbxassetid://1234567890", "rbxassetid://0987654321"],
+  "stats": {
+    "detected": 42,
+    "lastAlert": "14:25:14"
+  }
+}
