@@ -1,6 +1,6 @@
 # Sound Alert Pro
 
-A Roblox script executor GUI that watches specific sounds in a game and pings a Discord webhook the moment they play. Dark UI, per-sound toggles, persistent config, and fast detection — no metatable hooks that get you kicked.
+A Roblox script that watches specific sounds in a game and pings a Discord webhook the moment they play. Per-sound toggles, persistent config, and fast detection — no metatable hooks that get you kicked.
 
 Built for **Potassium** and **Volt**, but works with any executor that exposes `syn.request` / `request` / `http_request`.
 
