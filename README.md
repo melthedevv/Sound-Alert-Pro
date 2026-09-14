@@ -117,9 +117,6 @@ Delete the file to reset everything.
 |---|---|
 | Potassium | ✅ |
 | Volt | ✅ |
-| Synapse | ✅ |
-| Krnl | ✅ |
-| Fluxus | ✅ |
 | Others with `request` support | ✅ |
 
 ---
