@@ -123,7 +123,7 @@ Delete the file to reset everything.
 
 ## License
 
-Do whatever you want with it.
+Editing, or selling this code is not allowed please keep it to yourselves.
 
 ---
 
