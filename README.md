@@ -1,3 +1,4 @@
+```markdown
 # Sound Alert Pro
 
 A Roblox script executor GUI that watches specific sounds in a game and pings a Discord webhook the moment they play. Dark UI, per-sound toggles, persistent config, and fast detection — no metatable hooks that get you kicked.
@@ -79,3 +80,58 @@ Stored at `workspace/sound_alert_config.json` (inside your executor's folder):
     "lastAlert": "14:25:14"
   }
 }
+```
+
+Delete the file to reset everything.
+
+---
+
+## Detection Notes
+
+- **Watched by `SoundId`, not name.** This is intentional — many games clone a generic `Sound` instance and swap the `SoundId` at runtime, so name matching alone misses everything. Matching by ID catches originals, clones, and anything the game spawns mid-session.
+- **New sounds are auto-added.** `DescendantAdded` fires → if you've already ticked that SoundId, it goes straight into the watch list.
+- **Debounce.** Each sound has a 2-second cooldown so rapid-fire replays don't spam your webhook.
+
+---
+
+## Troubleshooting
+
+**Nothing sends / no ping**
+- Make sure the sound is **actually playing** — the script watches for playback events, not sound existence
+- Check the **Statistics** panel — if "Alerts Sent" isn't incrementing, the sound isn't being detected (wrong SoundId, or it's client-side only)
+- Run the **Test** button to confirm the webhook itself works
+
+**Kicked from the game (error 140 / 267)**
+- You're running an old version with the `__namecall` hook. Update to the current version — the hook was removed because it breaks the game's remote events and triggers anti-cheat.
+
+**Executed but nothing happened**
+- Your executor may not support `request` / `http_request`. Both Potassium and Volt do; some free executors don't.
+
+**Lag / frame drops**
+- Current version only iterates your watched sounds, so this shouldn't happen. If it does, your watch list is huge — try trimming it.
+
+---
+
+## Compatibility
+
+| Executor | Status |
+|---|---|
+| Potassium | ✅ |
+| Volt | ✅ |
+| Synapse | ✅ |
+| Krnl | ✅ |
+| Fluxus | ✅ |
+| Others with `request` support | ✅ |
+
+---
+
+## License
+
+Do whatever you want with it.
+
+---
+
+## Disclaimer
+
+This is an external script intended to run through a Roblox script executor. Using executors may violate Roblox's Terms of Service depending on the game and how you use it. Use at your own risk. The author is not responsible for any bans, kicks, or account actions resulting from use of this script.
+```
